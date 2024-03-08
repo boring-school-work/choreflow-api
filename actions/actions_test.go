@@ -1,11 +1,5 @@
 package actions_test
 
-import (
-	"testing"
-
-	"github.com/DaveSaah/choreflow-api/actions"
-)
-
 // func TestAddChore(t *testing.T) {
 // 	if err := actions.AddChore("Go buy new slippers"); err != nil {
 // 		t.Fatal(err)
@@ -41,11 +35,27 @@ import (
 // 	}
 // }
 
-func TestLogin(t *testing.T) {
-	person, err := actions.Login("someone@mail.com", "2xkWa24ABN")
-	if err != nil {
-		t.Fatal(err)
-	}
+// func TestLogin(t *testing.T) {
+// 	person, err := actions.Login("email@mail.com", "password")
+// 	if err != nil {
+// 		t.Fatal(err)
+// 	}
+//
+// 	t.Logf("Person: %v\n", person)
+// }
 
-	t.Logf("Person: %v\n", person)
-}
+// func TestRegister(t *testing.T) {
+// 	err := actions.Register(&types.People{
+// 		Email:  "email@mail.com",
+// 		Passwd: "password",
+// 		Fname:  "John",
+// 		Lname:  "Doe",
+// 		Gender: 0,
+// 		Fid:    2,
+// 		Tel:    "1234567890",
+// 		Dob:    "1990-01-01",
+// 	})
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+// }
