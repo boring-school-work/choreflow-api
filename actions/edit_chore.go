@@ -20,6 +20,11 @@ func EditChore(cid uint, chorename string) error {
 		chorename,
 		cid,
 	)
+	if err != nil {
+		log.Printf("Cannot edit chore: %s\n", err)
+		return err
+	}
 
-	return err
+	log.Printf("Chore edited: %d (cid)", cid)
+	return nil
 }

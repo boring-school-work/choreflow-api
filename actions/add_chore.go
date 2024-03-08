@@ -20,6 +20,11 @@ func AddChore(chorename string) error {
 		`INSERT INTO Chores(chorename) VALUES(?)`,
 		chorename,
 	)
+	if err != nil {
+		log.Printf("Error inserting chore: %s", err)
+		return err
+	}
 
-	return err
+	log.Printf("Chore added: %s", chorename)
+	return nil
 }

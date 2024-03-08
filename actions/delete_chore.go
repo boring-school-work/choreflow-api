@@ -21,5 +21,6 @@ func DeleteChore(cid uint) error {
 		return err
 	}
 
+	log.Printf("Chore deleted: %d (cid)", cid)
 	return nil
 }

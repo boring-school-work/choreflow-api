@@ -9,16 +9,6 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-// func getHashPassword(password string) (string, error) {
-// 	bytePassword := []byte(password)
-// 	hash, err := bcrypt.GenerateFromPassword(bytePassword, bcrypt.DefaultCost)
-// 	if err != nil {
-// 		return "", err
-// 	}
-//
-// 	return string(hash), nil
-// }
-
 func Login(email, passwd string) (*types.People, error) {
 	conn, err := db.Init()
 	if err != nil {
@@ -57,5 +47,6 @@ func Login(email, passwd string) (*types.People, error) {
 		return &types.People{}, err
 	}
 
+	log.Printf("User logged in: %s", email)
 	return &person, nil
 }

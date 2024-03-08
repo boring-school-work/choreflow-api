@@ -64,5 +64,6 @@ func AssignChore(pid uint, assignment *types.Assignment) error {
 		return err
 	}
 
+	log.Printf("Chore assigned to: %d (pid)", pid)
 	return nil
 }
