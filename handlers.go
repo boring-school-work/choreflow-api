@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"io"
 	"log"
 	"net/http"
 	"strconv"
@@ -9,6 +10,28 @@ import (
 	"github.com/DaveSaah/choreflow-api/actions"
 	"github.com/DaveSaah/choreflow-api/types"
 )
+
+func AddChoreHandler(w http.ResponseWriter, r *http.Request) {
+	log.Printf("Request from %s to %s %s", r.Host, r.Method, r.URL.Path)
+
+	chorename, err := io.ReadAll(r.Body)
+	if err != nil {
+		http.Error(w, "Chore not added", http.StatusInternalServerError)
+		log.Println(err)
+		return
+	}
+
+	chore := string(chorename)
+	err = actions.AddChore(chore)
+	if err != nil {
+		http.Error(w, "Chore not added", http.StatusInternalServerError)
+		log.Println(err)
+		return
+	}
+
+	w.Write([]byte("Chore added"))
+}
+
 func CheckDBHandler(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Request from %s to %s %s", r.Host, r.Method, r.URL.Path)
 
