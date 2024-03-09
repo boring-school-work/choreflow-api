@@ -26,3 +26,7 @@ func Init() (*sql.DB, error) {
 
 	return sql.Open("mysql", cfg.FormatDSN())
 }
+
+func IsAlive(db *sql.DB) error {
+	return db.Ping()
+}
