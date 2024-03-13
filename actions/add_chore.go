@@ -6,7 +6,7 @@ import (
 	"github.com/DaveSaah/choreflow-api/db"
 )
 
-// AddChore adds a chore to the assignmentbase
+// AddChore accepts a chorename and adds it to the Chores table
 func AddChore(chorename string) error {
 	conn, err := db.Init()
 	if err != nil {

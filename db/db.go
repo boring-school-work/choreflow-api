@@ -8,10 +8,7 @@ import (
 	"github.com/go-sql-driver/mysql"
 )
 
-type db interface {
-	New() *sql.DB
-}
-
+// Init initializes a new connection to the database
 func Init() (*sql.DB, error) {
 	cfg := mysql.Config{
 		User:                 os.Getenv("DBUSER"),

@@ -11,6 +11,8 @@ import (
 	"github.com/DaveSaah/choreflow-api/types"
 )
 
+// AddChoreHandler handles a GET request to add a chore.
+// The request body is a string that represents the chore name
 func AddChoreHandler(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Request from %s to %s %s", r.Host, r.Method, r.URL.Path)
 
@@ -32,6 +34,8 @@ func AddChoreHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Chore added"))
 }
 
+// CheckDBHandler handles a GET request to check if the
+// database is alive
 func CheckDBHandler(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Request from %s to %s %s", r.Host, r.Method, r.URL.Path)
 
@@ -45,6 +49,9 @@ func CheckDBHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("DB is running"))
 }
 
+// AssignChoreHandler handles a POST request to assign a chore to a user
+// The request body has a pid url parameter and accepts a json that
+// contains the assignment information
 func AssignChoreHandler(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Request from %s to %s %s", r.Host, r.Method, r.URL.Path)
 

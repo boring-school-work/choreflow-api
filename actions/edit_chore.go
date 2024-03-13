@@ -6,6 +6,10 @@ import (
 	"github.com/DaveSaah/choreflow-api/db"
 )
 
+// EditChore edits a chore in the database
+// Arguments:
+//
+//	cid -> the chore id
 func EditChore(cid uint, chorename string) error {
 	conn, err := db.Init()
 	if err != nil {

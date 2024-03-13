@@ -8,12 +8,16 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// EmailExistsError is an error type for when a user tries to register
+// with an email that already exists
 type EmailExistsError struct{}
 
+// Error returns the error message for EmailExistsError type
 func (e *EmailExistsError) Error() string {
 	return "Email already exists"
 }
 
+// getHashPassword returns a hashed password using bcrypt and default cost
 func getHashPassword(password string) (string, error) {
 	bytePassword := []byte(password)
 	hash, err := bcrypt.GenerateFromPassword(bytePassword, bcrypt.DefaultCost)
@@ -25,6 +29,7 @@ func getHashPassword(password string) (string, error) {
 	return string(hash), nil
 }
 
+// Register registers a user into the database
 func Register(person *types.People) error {
 	conn, err := db.Init()
 	if err != nil {

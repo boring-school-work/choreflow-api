@@ -6,6 +6,7 @@ import (
 	"github.com/DaveSaah/choreflow-api/db"
 )
 
+// CheckDB checks if the database is alive
 func CheckDB() error {
 	conn, err := db.Init()
 	if err != nil {

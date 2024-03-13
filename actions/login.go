@@ -9,6 +9,9 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// Login performs a login action by querying the database for the user and comparing the password
+// If the user is found and the password matches, the user is returned
+// If the user is not found or the password does not match, an error is returned
 func Login(email, passwd string) (*types.People, error) {
 	conn, err := db.Init()
 	if err != nil {

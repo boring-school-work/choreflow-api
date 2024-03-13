@@ -1,6 +1,7 @@
 // package types contains the entity definitions for the database
 package types
 
+// Assignment struct contains the fields for the assignment entity
 type Assignment struct {
 	DateDue       string `json:"date-due"`
 	LastUpdated   string `json:"last-updated"`
@@ -12,6 +13,7 @@ type Assignment struct {
 	WhoAssigned   uint   `json:"who-assigned"`
 }
 
+// Person struct contains the fields for the person entity
 type People struct {
 	Passwd string `json:"passwd"`
 	Fname  string `json:"fname"`

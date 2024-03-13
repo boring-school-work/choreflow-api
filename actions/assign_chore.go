@@ -7,8 +7,12 @@ import (
 	"github.com/DaveSaah/choreflow-api/types"
 )
 
-// assigns a chore to a child
-func AssignChore(pid uint, assignment *types.Assignment) error {
+// AssignChore assigns a chore to a child
+// Arugments:
+//
+//	pid -> person who has been assigned the chore
+//	assignment -> the information of chore to be assigned
+func AssignChore(pid uint64, assignment *types.Assignment) error {
 	conn, err := db.Init()
 	if err != nil {
 		log.Printf("Cannot create the db connection: %s\n", err)
