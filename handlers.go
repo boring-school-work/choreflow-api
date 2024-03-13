@@ -35,18 +35,22 @@ func AddChoreHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // CheckDBHandler handles a GET request to check if the
-// database is alive
+// database is alive. It returns a json response with the
+// status of the database (up or down)
 func CheckDBHandler(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Request from %s to %s %s", r.Host, r.Method, r.URL.Path)
+	w.Header().Set("Content-Type", "application/json")
 
 	err := actions.CheckDB()
 	if err != nil {
 		http.Error(w, "DB is down", http.StatusInternalServerError)
 		log.Println(err)
+		w.Write([]byte(`{"status": "down"}`))
 		return
 	}
 
-	w.Write([]byte("DB is running"))
+	// write json response
+	w.Write([]byte(`{"status": "up"}`))
 }
 
 // AssignChoreHandler handles a POST request to assign a chore to a user
