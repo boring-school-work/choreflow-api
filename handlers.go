@@ -87,3 +87,10 @@ func AssignChoreHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.Write([]byte("Chore assigned"))
 }
+
+// SwaggerSpecHandler handles a GET request to serve the swagger config file
+// for the api's documentation
+func SwaggerSpecHandler(w http.ResponseWriter, r *http.Request) {
+	log.Printf("Request from %s to %s %s", r.Host, r.Method, r.URL.Path)
+	http.ServeFile(w, r, "./docs/swagger.json")
+}
