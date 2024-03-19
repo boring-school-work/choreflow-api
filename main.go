@@ -18,20 +18,6 @@ func getURI(method, endpoint string) string {
 	return method + " " + baseURL + endpoint
 }
 
-// @title Choreflow API
-// @version 1.0
-// @description A API for choreflow: https://github/DaveSaah/choreflow
-// @termsOfService http://swagger.io/terms/
-
-// @contact.name David Saah
-// @contact.url https://github.com/DaveSaah
-// @contact.email saahdavid17@gmail.com
-
-// @license.name MIT
-// @license.url https://github.com/DaveSaah/choreflow-api/LICENSE
-
-// @host petstore.swagger.io
-// @BasePath /choreflow/api/v1/
 func main() {
 	mux := http.NewServeMux()
 
