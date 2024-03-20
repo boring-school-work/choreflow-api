@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/DaveSaah/choreflow-api/handlers"
 	httpSwagger "github.com/swaggo/http-swagger/v2"
 )
 
@@ -22,18 +23,18 @@ func main() {
 	mux := http.NewServeMux()
 
 	// serve swagger docs
-	mux.HandleFunc(getURI("GET", "swagger/swagger.json"), SwaggerSpecHandler)
+	mux.HandleFunc(getURI("GET", "swagger/swagger.yaml"), handlers.SwaggerSpecHandler)
 
 	// serve Swagger UI
 	mux.HandleFunc(
 		getURI("GET", "swagger/ui/"),
-		httpSwagger.Handler(httpSwagger.URL("http://localhost:3211/choreflow/api/v1/swagger/swagger.json")),
+		httpSwagger.Handler(httpSwagger.URL("http://localhost:3211/choreflow/api/v1/swagger/swagger.yaml")),
 	)
 
 	// serve API endpoints
-	mux.HandleFunc(getURI("POST", "add-chore"), AddChoreHandler)
-	mux.HandleFunc(getURI("GET", "status"), CheckDBHandler)
-	mux.HandleFunc(getURI("POST", "assign-chore/{pid}"), AssignChoreHandler)
+	mux.HandleFunc(getURI("GET", "status"), handlers.CheckDBHandler)
+	mux.HandleFunc(getURI("", "chore/{id}"), handlers.ChoreHandler)
+	mux.HandleFunc(getURI("", "assignment/{pid}"), handlers.AssignmentHandler)
 
 	log.Printf("Starting api server at http://localhost%s%s\n", port, baseURL)
 	log.Printf("Starting api docs at http://localhost%s%s%s\n", port, baseURL, "swagger/ui")

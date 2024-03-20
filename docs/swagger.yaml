@@ -1,4 +1,74 @@
-info:
-  contact: {}
-paths: {}
 swagger: "2.0"
+info:
+  contact:
+    name: "David Saah"
+    url: "https://github.com/DaveSaah"
+    email: "saahdavid17@gmail.com"
+  version: "1.0"
+  license:
+    name: "MIT"
+    url: "https://github.com/DaveSaah/choreflow-api/LICENSE"
+  description: "An API for choreflow: https://github/DaveSaah/choreflow"
+  title: "Choreflow API"
+schemes:
+  - "http"
+host: "localhost:3211"
+basePath: "/choreflow/api/v1/"
+consumes:
+  - "application/json"
+  - "text/plain"
+produces:
+  - "application/json"
+paths:
+  /status:
+    get:
+      description: "Checks whether database is alive"
+      produces:
+        - "application/json"
+      operationId: "checkDB"
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/DefaultModel"
+        500:
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/DefaultModel"
+  /chore:
+    post:
+      description: "Adds a chore to the database"
+      produces:
+        - "application/json"
+      consumes:
+        - "text/plain"
+      operationId: "addChore"
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/DefaultModel"
+        500:
+          description: "Internal Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/DefaultModel"
+definitions:
+  DefaultModel:
+    type: "object"
+    required:
+      - "code"
+      - "msg"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      message:
+        type: "string"
