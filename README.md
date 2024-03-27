@@ -14,6 +14,6 @@ go mod tidy
 
 ## Documentation
 
-- **Base URL:** `http://localhost:3211/choreflow/api/v1`
-- **Full URI:** `http://localhost:3211/choreflow/api/v1/{endpoint}`
-- **Swagger UI**: `http://localhost:3211/choreflow/api/v1/swagger/ui`
+Start the API server and navigate to the following URL:
+
+- `http://localhost:3211/choreflow/api/v1/swagger/ui`
