@@ -1,6 +1,7 @@
 package actions
 
 import (
+	"errors"
 	"log"
 
 	"github.com/DaveSaah/choreflow-api/db"
@@ -10,7 +11,7 @@ import (
 // Arguments:
 //
 //	cid -> the chore id
-func EditChore(cid uint, chorename string) error {
+func EditChore(cid int, chorename string) error {
 	conn, err := db.Init()
 	if err != nil {
 		log.Printf("Cannot create the db connection: %s\n", err)
@@ -19,7 +20,7 @@ func EditChore(cid uint, chorename string) error {
 
 	defer conn.Close()
 
-	_, err = conn.Exec(
+	res, err := conn.Exec(
 		`UPDATE Chores SET chorename=? WHERE cid=?`,
 		chorename,
 		cid,
@@ -27,6 +28,13 @@ func EditChore(cid uint, chorename string) error {
 	if err != nil {
 		log.Printf("Cannot edit chore: %s\n", err)
 		return err
+	}
+
+	count, _ := res.RowsAffected()
+
+	if count == 0 {
+		log.Printf("No chore found with id: %d\n", cid)
+		return errors.New("id not found")
 	}
 
 	log.Printf("Chore edited: %d (cid)", cid)
