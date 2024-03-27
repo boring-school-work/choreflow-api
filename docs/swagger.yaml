@@ -1,74 +1,188 @@
-swagger: "2.0"
+openapi: 3.0.0
 info:
-  contact:
-    name: "David Saah"
-    url: "https://github.com/DaveSaah"
-    email: "saahdavid17@gmail.com"
-  version: "1.0"
-  license:
-    name: "MIT"
-    url: "https://github.com/DaveSaah/choreflow-api/LICENSE"
+  title: Choreflow API
   description: "An API for choreflow: https://github/DaveSaah/choreflow"
-  title: "Choreflow API"
-schemes:
-  - "http"
-host: "localhost:3211"
-basePath: "/choreflow/api/v1/"
-consumes:
-  - "application/json"
-  - "text/plain"
-produces:
-  - "application/json"
+  contact:
+    name: David Saah
+    url: https://github.com/DaveSaah
+    email: saahdavid17@gmail.com
+  license:
+    name: MIT
+    url: https://github.com/DaveSaah/choreflow-api/LICENSE
+  version: 1.0.0
+servers:
+  - url: http://localhost:3211/choreflow/api/v1
+  # - url: http://139.59.161.227:3211/choreflow/api/v1
+tags:
+  - name: Database
+  - name: Chore Management
+  - name: User Management
 paths:
   /status:
     get:
-      description: "Checks whether database is alive"
-      produces:
-        - "application/json"
-      operationId: "checkDB"
+      tags:
+        - Database
+      summary: Checks whether database is alive
       responses:
-        200:
-          description: "OK"
+        "200":
+          description: OK
           content:
             application/json:
               schema:
-                $ref: "#/definitions/DefaultModel"
-        500:
-          description: "Internal Server Error"
+                $ref: "#/components/schemas/Default"
+        "500":
+          description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: "#/definitions/DefaultModel"
+                $ref: "#/components/schemas/Default"
+  /chore/{id}:
+    get:
+      tags:
+        - Chore Management
+      summary: Gets a chore by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 1
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Default"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Default"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Default"
+    delete:
+      tags:
+        - Chore Management
+      summary: Deletes a chore by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 1
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Default"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Default"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Default"
+    patch:
+      tags:
+        - Chore Management
+      summary: Edits a chore by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          style: simple
+          explode: false
+          schema:
+            minimum: 1
+            type: integer
+            format: int64
+      requestBody:
+        description: New chore name
+        content:
+          text/plain:
+            schema:
+              type: string
+              example: Mow the lawn
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Default"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Default"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Default"
   /chore:
     post:
-      description: "Adds a chore to the database"
-      produces:
-        - "application/json"
-      consumes:
-        - "text/plain"
-      operationId: "addChore"
+      tags:
+        - Chore Management
+      summary: Adds a chore
+      requestBody:
+        description: Chore name
+        content:
+          text/plain:
+            schema:
+              type: string
+              example: Take out the trash
       responses:
-        200:
-          description: "OK"
+        "200":
+          description: OK
           content:
             application/json:
               schema:
-                $ref: "#/definitions/DefaultModel"
-        500:
-          description: "Internal Server Error"
+                $ref: "#/components/schemas/Default"
+        "500":
+          description: Internal Server Error
           content:
             application/json:
               schema:
-                $ref: "#/definitions/DefaultModel"
-definitions:
-  DefaultModel:
-    type: "object"
-    required:
-      - "code"
-      - "msg"
-    properties:
-      code:
-        type: "integer"
-        format: "int32"
-      message:
-        type: "string"
+                $ref: "#/components/schemas/Default"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Default"
+components:
+  schemas:
+    Default:
+      required:
+        - code
+        - msg
+      type: object
+      properties:
+        code:
+          type: integer
+        msg:
+          type: string
