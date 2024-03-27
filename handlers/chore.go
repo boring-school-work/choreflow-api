@@ -4,6 +4,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/DaveSaah/choreflow-api/actions"
 )
@@ -12,6 +13,7 @@ import (
 // The request body is a string representing the chore name
 func addChore(w http.ResponseWriter, r *http.Request) {
 	errorResponse := response{msg: "Chore not added", code: http.StatusInternalServerError}
+	errorEmptyBody := response{msg: "Empty body", code: http.StatusBadRequest}
 	successResponse := response{msg: "Chore added", code: http.StatusOK}
 
 	chorename, err := io.ReadAll(r.Body)
@@ -22,6 +24,14 @@ func addChore(w http.ResponseWriter, r *http.Request) {
 	}
 
 	chore := string(chorename)
+
+	// check if an empty body was passed
+	if chore == "" {
+		errorEmptyBody.write(w)
+		log.Println(errorEmptyBody.msg)
+		return
+	}
+
 	err = actions.AddChore(chore)
 	if err != nil {
 		errorResponse.write(w)
@@ -120,6 +130,7 @@ func editChore(w http.ResponseWriter, r *http.Request) {
 
 	successResponse.write(w)
 }
+
 // ChoreHandler handles a request to add, delete, or edit a chore.
 func ChoreHandler(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Request from %s to %s %s", r.Host, r.Method, r.URL.Path)
