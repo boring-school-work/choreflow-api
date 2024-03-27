@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"database/sql"
 	"io"
 	"log"
 	"net/http"
@@ -67,6 +68,7 @@ func deleteChore(w http.ResponseWriter, r *http.Request) {
 	err = actions.DeleteChore(cid)
 	if err != nil && err.Error() == "id not found" {
 		errorBadID.write(w)
+		log.Println(err)
 		return
 	}
 
@@ -119,6 +121,7 @@ func editChore(w http.ResponseWriter, r *http.Request) {
 	err = actions.EditChore(cid, chore)
 	if err != nil && err.Error() == "id not found" {
 		errorBadID.write(w)
+		log.Println(err)
 		return
 	}
 
@@ -128,6 +131,41 @@ func editChore(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	successResponse.write(w)
+}
+
+func getChore(w http.ResponseWriter, r *http.Request) {
+	errorResponse := response{msg: "Chore not found", code: http.StatusInternalServerError}
+	errorEmptyID := response{msg: "Chore ID is empty", code: http.StatusBadRequest}
+	errorBadID := response{msg: "Chore ID is invalid", code: http.StatusBadRequest}
+
+	id := r.PathValue("id")
+	if id == "" {
+		errorEmptyID.write(w)
+		log.Println(errorEmptyID.msg)
+		return
+	}
+
+	cid, err := strconv.Atoi(id)
+	if err != nil {
+		errorResponse.write(w)
+		log.Println(err)
+		return
+	}
+
+	chorename, err := actions.GetChore(cid)
+	if err != nil && err == sql.ErrNoRows {
+		errorBadID.write(w)
+		return
+	}
+
+	if err != nil {
+		errorResponse.write(w)
+		log.Println(err)
+		return
+	}
+
+	successResponse := response{msg: chorename, code: http.StatusOK}
 	successResponse.write(w)
 }
 
@@ -142,5 +180,7 @@ func ChoreHandler(w http.ResponseWriter, r *http.Request) {
 		deleteChore(w, r)
 	case http.MethodPatch:
 		editChore(w, r)
+	case http.MethodGet:
+		getChore(w, r)
 	}
 }
