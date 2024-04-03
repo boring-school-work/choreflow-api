@@ -11,13 +11,13 @@ import (
 
 // Init initializes a new connection to the database
 func Init() (*sql.DB, error) {
-	addr := fmt.Sprintf("%s:%s", os.Getenv("DBHOST"), os.Getenv("DBPORT"))
+	addr := fmt.Sprintf("%s:%s", os.Getenv("DBAPIHOST"), os.Getenv("DBAPIPORT"))
 	cfg := mysql.Config{
-		User:                 os.Getenv("DBUSER"),
-		Passwd:               os.Getenv("DBPASS"),
+		User:                 os.Getenv("DBAPIUSER"),
+		Passwd:               os.Getenv("DBAPIPASS"),
 		Net:                  "tcp",
 		Addr:                 addr,
-		DBName:               os.Getenv("DBNAME"),
+		DBName:               os.Getenv("DBAPINAME"),
 		AllowNativePasswords: true,
 		ParseTime:            true,
 		Loc:                  time.UTC,
