@@ -36,6 +36,24 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Default"
+  /chores:
+    get:
+      tags:
+        - Chore Management
+      summary: Retrieves all the chores in the database
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Chorelist"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Default"
   /chore/{id}:
     get:
       tags:
@@ -186,3 +204,15 @@ components:
           type: integer
         msg:
           type: string
+    Chorelist:
+      required:
+        - code
+        - chores
+      type: object
+      properties:
+        code:
+          type: integer
+        chores:
+          type: array
+          items:
+            type: string
