@@ -11,8 +11,8 @@ info:
     url: https://github.com/DaveSaah/choreflow-api/LICENSE
   version: 1.0.0
 servers:
-  - url: http://localhost:3211/choreflow/api/v1
   - url: http://139.59.161.227:3211/choreflow/api/v1
+  - url: http://localhost:3211/choreflow/api/v1
 tags:
   - name: Database
   - name: Chore Management
