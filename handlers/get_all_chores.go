@@ -29,10 +29,6 @@ func ChoresHandler(w http.ResponseWriter, r *http.Request) {
 	// build a json object with the chores slice
 	w.Write([]byte(`{"chores": [`))
 	for i, chore := range chores {
-
-		log.Printf("Chore: %s", chore)
-		log.Printf("i: %d", i)
-
 		w.Write([]byte(`"` + chore + `"`))
 		if i != len(chores)-1 {
 			w.Write([]byte(","))

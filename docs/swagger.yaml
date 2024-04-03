@@ -16,7 +16,6 @@ servers:
 tags:
   - name: Database
   - name: Chore Management
-  - name: User Management
 paths:
   /status:
     get:
