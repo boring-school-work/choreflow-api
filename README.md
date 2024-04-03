@@ -1,21 +1,45 @@
 # Choreflow API
 
-## Running the API
+## Documentation & Testing API
+
+Live API available at: http://139.59.161.227:3211/choreflow/api/v1/swagger/ui
+
+## Run the API Locally
 
 ### Prerequisites
 
-- Go 1.22.1
+- Install Go v1.22.1+
 
 ### Install Dependencies
+
+Navigate to the project direcotory and run the following command:
 
 ```bash
 go mod tidy
 ```
 
-## Documentation
+### Create Database
 
-Start the API server and navigate to the following URL, whether on localhost or
-on a live server:
+1. Run/source/import the sql file at `db/chores_mgt.sql` on your sql database.
+2. Update your environment variables to reflect your sql configuration.
 
-- http://localhost:3211/choreflow/api/v1/swagger/ui
-- http://139.59.161.227:3211/choreflow/api/v1/swagger/ui
+List of environment variables to create:
+
+- `DBAPIHOST`: MYSQL host (e.g. localhost).
+- `DBAPIPORT`: MYSQL port (e.g. 3306).
+- `DBAPIUSER`: MYSQL user that has access to the database.
+- `DBAPIPASS`: MYSQL user password.
+- `DBAPINAME`: Must be `chores_mgt`.
+
+### Run Project
+
+Navigate to the project directory and run the command below:
+
+```bash
+go run .
+```
+
+Visit http://localhost:3211/choreflow/api/v1/swagger/ui to test the api.
+
+
+
