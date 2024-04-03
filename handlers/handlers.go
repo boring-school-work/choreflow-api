@@ -18,3 +18,8 @@ func (res *response) write(w http.ResponseWriter) {
 	w.WriteHeader(res.code)
 	w.Write([]byte(`{"msg": "` + res.msg + `"}`))
 }
+
+// update updates the response message
+func (res *response) update(msg string) {
+	res.msg = msg
+}

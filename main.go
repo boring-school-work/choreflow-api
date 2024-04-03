@@ -35,6 +35,7 @@ func main() {
 	mux.HandleFunc(getURI("GET", "status"), handlers.CheckDBHandler)
 	mux.HandleFunc(getURI("", "chore/{id}"), handlers.ChoreHandler)
 	mux.HandleFunc(getURI("", "chore"), handlers.ChoreHandler)
+	mux.HandleFunc(getURI("GET", "chores"), handlers.ChoresHandler)
 	mux.HandleFunc(getURI("", "assign-chore/{pid}"), handlers.AssignmentHandler)
 
 	log.Printf("Starting api server at http://localhost%s%s\n", port, baseURL)
