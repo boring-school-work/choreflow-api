@@ -1,9 +1,5 @@
 # Choreflow API
 
-## Documentation & Testing API
-
-Live API available at: http://139.59.161.227:3211/choreflow/api/v1/swagger/ui
-
 ## Run the API Locally
 
 ### Prerequisites
